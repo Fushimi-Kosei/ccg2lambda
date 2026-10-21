@@ -1,0 +1,153 @@
+####### 経路計画問題用のセマンティックテンプレート(英語版) #######
+
+##### 原子命題の生成 #####
+### F_I(P)：到達 ###
+- category: (S\NP)/NP
+  semantics: \V O I. _F(I, _AP(O))
+  base: [reach, visit, enter]
+
+### G_I(¬P)：回避 ###
+- category: (S\NP)/NP
+  semantics: \V O I. _G(I, -_AP(O))
+  base: [avoid]
+
+### G_I(P)：滞在 ###
+- category: S\NP
+  semantics: \V O I. _G(I, _AP(O))
+  child0_base: [stay]
+  child1_child0_surf: [in]
+  
+
+
+##### 時間制約の生成 #####
+### ~以内に ###
+- category: ((S\NP)\(S\NP))/NP
+  semantics: \P T V. V(_I(_0,T))
+  surf: [within]
+
+- category: ((S\NP)\(S\NP))/N
+  semantics: \P T V. V(_I(_0,T))
+  surf: [within]
+
+- category: (S/S)/NP
+  semantics: \P T V. V(_I(_0,T))
+  surf: [within]
+
+### ~の間 ###
+- category: ((S\NP)\(S\NP))/NP
+  semantics: \P T V. V(_I(_0,T))
+  surf: [for]
+
+
+##### 時間区間の生成 #####
+### 数字の認識 ###
+- category: N/N
+  semantics: \N T. N
+  pos: CD
+
+- category: NP/N
+  semantics: \N T. N
+  pos: CD
+
+- category: NP/NP
+  semantics: \N T. N
+  pos: CD
+
+
+
+##### 命題論理記号 #####
+### OR (∨) ###
+- category: N\N
+  rule: conj
+  semantics: \C N2 N1. (N1 | N2)
+  child0_surf: or
+
+- category: NP\NP
+  rule: conj
+  semantics: \C N2 N1. (N1 | N2)
+  child0_surf: or
+
+- category: (S\NP)\(S\NP)
+  rule: conj
+  semantics: \C V2 V1 I. (V1(I) | V2(I))
+  child0_surf: or
+
+- category: S\S
+  rule: conj
+  semantics: \C V2 V1 I. (V1(I) | V2(I))
+  child0_surf: or
+
+- category: (S\NP)\(S\NP)
+  rule: conj
+  semantics: \C V2 V1. (V1 | V2)
+  child0_surf: or
+  child1_any_surf: [within, for]
+
+- category: S\S
+  rule: conj
+  semantics: \C V2 V1. (V1 | V2)
+  child0_surf: or
+  child1_any_surf: [within, for]
+
+
+
+
+### and (∧) ###
+- category: (S\NP)\(S\NP)
+  rule: conj
+  semantics: \C V2 V1 . (V1 & V2)
+  child0_surf: and
+
+
+- category: S\S
+  rule: conj
+  semantics: \C V2 V1 . (V1 & V2)
+  child0_surf: and
+
+
+- category: ((S\NP)\(S\NP))/(S\NP)
+  semantics: \C V2 V1. (V1 & V2(_SAME))
+  surf: while
+
+- category: ((S\NP)\(S\NP))/NP
+  semantics: \C V2 V1. (V1 & V2(_SAME))
+  surf: while
+
+
+#### 順序付き ####
+
+- category: S\S
+  rule: conj
+  semantics: \C V2 V1. _SEQ(V1, V2)
+  child0_surf: and
+  child1_any_surf: then
+
+
+- category: (S\NP)\(S\NP)
+  rule: conj
+  semantics: \C V2 V1. _SEQ(V1, V2)
+  child0_surf: and
+  child1_child0_surf: then
+
+- category: (S\NP)\(S\NP)
+  rule: conj
+  semantics: \C V2 V1. _SEQ(V1, V2)
+  child0_surf: and
+  child1_child0_child0_surf: then
+
+
+
+#### 文の区切り・文末 ####
+- category: .
+  semantics: \S X. X
+  surf: "."
+
+- category: S
+  rule: lp
+  semantics: \S X. X
+  child0_surf: ","
+
+- category: S\NP
+  rule: lp
+  semantics: \S X. X
+  child0_surf: ","

@@ -1,0 +1,58 @@
+### 形容詞 ###
+- category: NP/N
+  semantics: \A N. N(A)
+  pos: JJ
+
+- category: N/N
+  semantics: \A N. N(A)
+  pos: JJ
+
+- category: NP/NP
+  semantics: \A N. N(A)
+  pos: JJ
+
+
+### 副詞 ###
+
+
+
+### 前置詞 ###
+- category: (NP\NP)/NP
+  semantics: \P N2 N1. N1(P(N2))
+  pos: IN
+
+- category: NP\NP
+  rule: conj
+  semantics: \P N2 N1. N1(P(N2))
+  child0_pos: IN
+
+
+
+### 接続詞 ###
+- category: N\N
+  rule: conj
+  semantics: \C Y X. C(X, Y)
+  child0_pos: CC
+
+- category: NP\NP
+  rule: conj
+  semantics: \C Y X. C(X, Y)
+  child0_pos: CC
+
+- category: (N/N)\(N/N)
+  rule: conj
+  semantics: \C Y X N. C(X(N), Y(N))
+  child0_pos: CC
+  child1_pos: JJ
+
+- category: (NP/N)\(NP/N)
+  rule: conj
+  semantics: \C Y X N. C(X(N), Y(N))
+  child0_pos: CC
+  child1_pos: JJ
+
+- category: (NP/NP)\(NP/NP)
+  rule: conj
+  semantics: \C Y X N. C(X(N), Y(N))
+  child0_pos: CC
+  child1_pos: JJ
