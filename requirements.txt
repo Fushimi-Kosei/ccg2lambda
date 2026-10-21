@@ -1,0 +1,6 @@
+# Core imports used by ccg2lambda. This is not a tested version lock.
+# See README.md for legacy Python/NLTK compatibility and optional dependencies.
+lxml
+simplejson
+PyYAML
+nltk
